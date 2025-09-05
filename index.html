@@ -4,167 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Personal Portfolio</title>
+    <title>To-Do List App with Login</title>
 </head>
 <body>
     <!-- Authentication Container -->
     <div id="auth-container">
         <div class="auth-box" id="signup-box">
-            <h2>Create Your Portfolio</h2>
+            <h2>Sign Up</h2>
             <input type="email" id="signup-email" placeholder="Email" required>
             <input type="password" id="signup-password" placeholder="Password" required>
             <button id="signup-btn">Sign Up</button>
             <p id="signup-msg" class="message"></p>
-            <p class="switch-auth">Already have a portfolio? <span id="show-login">Login</span></p>
+            <p class="switch-auth">Already have an account? <span id="show-login">Login</span></p>
         </div>
         
         <div class="auth-box" id="login-box" style="display:none;">
-            <h2>Access Your Portfolio</h2>
+            <h2>Login</h2>
             <input type="email" id="login-email" placeholder="Email" required>
             <input type="password" id="login-password" placeholder="Password" required>
             <button id="login-btn">Login</button>
             <p id="login-msg" class="message"></p>
-            <p class="switch-auth">Don't have a portfolio? <span id="show-signup">Sign Up</span></p>
+            <p class="switch-auth">Don't have an account? <span id="show-signup">Sign Up</span></p>
         </div>
     </div>
 
-    <!-- Portfolio Container -->
-    <div id="portfolio-container" style="display:none;">
-        <!-- Navigation -->
-        <nav class="navbar">
-            <div class="nav-brand">Portfolio</div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li><button id="logout-btn" class="logout-nav">Logout</button></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- To-Do List Container -->
+    <div id="todo-container" style="display:none;">
+        <div class="container">
+            <div class="header">
+                <h1>My To-Do List</h1>
+                <button id="logout-btn" class="logout">Logout</button>
             </div>
-        </nav>
-
-        <!-- Home Section -->
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <div class="profile-image-container">
-                    <img id="profile-image" src="https://via.placeholder.com/200" alt="Profile Picture">
-                    <button class="edit-btn" onclick="editProfileImage()">
-                        <i class="fas fa-pen"></i>
-                    </button>
-                </div>
-                <h1 id="user-name" class="editable" onclick="editText('user-name')">Your Name</h1>
-                <p id="user-tagline" class="editable" onclick="editText('user-tagline')">Your Professional Tagline</p>
-                <a href="#about" class="cta-button">Learn More About Me</a>
+            <div class="input-container">
+                <input type="text" id="task" placeholder="Add a new task...">
+                <button id="add">Add Task</button>
             </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2>About Me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p id="about-description" class="editable" onclick="editText('about-description')">
-                            Click here to add your professional description and background...
-                        </p>
-                        <button class="edit-btn section-edit" onclick="editText('about-description')">
-                            <i class="fas fa-pen"></i>
-                        </button>
-                    </div>
-                </div>
+            <div class="task-stats">
+                <span id="total-tasks">Total: 0</span>
+                <span id="completed-tasks">Completed: 0</span>
+                <span id="pending-tasks">Pending: 0</span>
             </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="skills">
-            <div class="container">
-                <h2>Skills</h2>
-                <button class="edit-btn section-edit" onclick="editSkills()">
-                    <i class="fas fa-pen"></i>
-                </button>
-                <div class="skills-grid" id="skills-grid">
-                    <!-- Skills will be dynamically added -->
-                </div>
-                <button id="add-skill-btn" class="add-btn">Add New Skill</button>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="projects">
-            <div class="container">
-                <h2>Projects</h2>
-                <button class="edit-btn section-edit" onclick="editProjects()">
-                    <i class="fas fa-pen"></i>
-                </button>
-                <div class="projects-grid" id="projects-grid">
-                    <!-- Projects will be dynamically added -->
-                </div>
-                <button id="add-project-btn" class="add-btn">Add New Project</button>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Contact Me</h2>
-                <button class="edit-btn section-edit" onclick="editContact()">
-                    <i class="fas fa-pen"></i>
-                </button>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span id="contact-email" class="editable" onclick="editText('contact-email')">your.email@example.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span id="contact-phone" class="editable" onclick="editText('contact-phone')">+1234567890</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
-                            <span id="contact-linkedin" class="editable" onclick="editText('contact-linkedin')">linkedin.com/in/yourprofile</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fab fa-github"></i>
-                            <span id="contact-github" class="editable" onclick="editText('contact-github')">github.com/yourusername</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Back to Top Button -->
-        <button id="back-to-top" class="back-to-top">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-    </div>
-
-    <!-- Modals -->
-    <div id="skill-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Add/Edit Skill</h3>
-            <input type="text" id="skill-name" placeholder="Skill Name">
-            <input type="number" id="skill-level" placeholder="Skill Level (1-100)" min="1" max="100">
-            <button id="save-skill">Save Skill</button>
-        </div>
-    </div>
-
-    <div id="project-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Add/Edit Project</h3>
-            <input type="text" id="project-title" placeholder="Project Title">
-            <textarea id="project-description" placeholder="Project Description"></textarea>
-            <input type="url" id="project-link" placeholder="Project Link (optional)">
-            <input type="url" id="project-demo" placeholder="Demo Link (optional)">
-            <button id="save-project">Save Project</button>
+            <ul id="taskList"></ul>
         </div>
     </div>
 
